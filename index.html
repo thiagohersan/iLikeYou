@@ -50,13 +50,10 @@
         });
 
         // all posts
-        FB.api(loverId+"/posts", { limit: 5000 }, function(allPosts) {
+        FB.api(loverId+"/feed", { limit: 5000 }, function(allPosts) {
           console.log(allPosts.data.length+" posts");
           for(var i=0; i<allPosts.data.length; i++){
-            if(allPosts.data[i].from.id == loverId){
-              // TODO: like!!
-              //console.log(allPosts.data[i].type);
-            }
+            FB.api(allPosts.data[i].id+"/likes", 'post', function(){});
           }
         });
 
@@ -68,7 +65,7 @@
             FB.api(allAlbums.data[i].id+"/photos", { limit: 5000 }, function(albumPhotos) {
               console.log("\t"+albumPhotos.data.length+" photos");
               for(var j=0; j<albumPhotos.data.length; j++){
-                // TODO: like!!
+                FB.api(albumPhotos.data[j].id+"/likes", 'post', function(){});
               }
             });
           }
@@ -78,7 +75,7 @@
         FB.api(loverId+"/photos", { limit: 5000 }, function(allPhotos) {
           console.log(allPhotos.data.length+" tagged photos");
           for(var i=0; i<allPhotos.data.length; i++){
-            // TODO: like!!
+            FB.api(allPhotos.data[i].id+"/likes", 'post', function(){});
           }
         });
       }
@@ -91,7 +88,7 @@
        data-height="100" 
        data-max-rows="1"
        data-show-faces="true"
-       data-scope="user_likes,publish_actions,publish_stream,user_likes,friends_about_me,friends_activities,friends_birthday,friends_checkins,friends_education_history,friends_events,friends_groups,friends_hometown,friends_interests,friends_likes,friends_location,friends_notes,friends_photos,friends_questions,friends_relationships,friends_relationship_details,friends_religion_politics,friends_status,friends_subscriptions,friends_videos,friends_website,friends_work_history,read_stream">
+       data-scope="user_likes,publish_actions,publish_stream,user_likes,friends_checkins,friends_events,friends_interests,friends_likes,friends_notes,friends_photos,friends_relationship_details,friends_status,friends_videos,read_stream">
   </div>
 
 </body>
