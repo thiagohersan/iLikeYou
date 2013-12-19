@@ -22,21 +22,11 @@
       xfbml      : true  // parse XFBML
     });
 
-    // Here we subscribe to the auth.authResponseChange JavaScript event. This event is fired
-    // for any authentication related change, such as login, logout or session refresh.
     FB.Event.subscribe('auth.authResponseChange', function(response) {
-      // Here we specify what we do with the response anytime this event occurs. 
       if (response.status === 'connected') {
-        // The response object is returned with a status field that lets the app know the current
-        // login status of the person. In this case, we're handling the situation where they 
-        // have logged in to the app.
         onLogIn();
       }
     });
-  };
-
-  window.onload = function(){
-    document.getElementById('main-body').style['margin-top'] = document.getElementById('header').clientHeight;
   };
 
   // Load the SDK asynchronously
@@ -47,6 +37,15 @@
     js.src = "//connect.facebook.net/en_US/all.js";
     ref.parentNode.insertBefore(js, ref);
   }(document));
+
+  function logMeIn(){
+    FB.login(function(response){},
+             {scope: "user_likes,publish_actions,publish_stream,user_likes,friends_checkins,friends_events,friends_interests,friends_likes,friends_notes,friends_photos,friends_relationship_details,friends_status,friends_videos,read_stream"});
+  }
+
+  window.onload = function(){
+    document.getElementById('main-body').style['margin-top'] = document.getElementById('header').clientHeight+"px";
+  };
 
   function onLogIn() {
       document.getElementById("login-button").style.display = 'none';
@@ -113,15 +112,18 @@
   </div>
 
   <div id="main-body">
-    <div class="fb-login-button"
-         id="login-button"
-         data-width="200"
-         data-height="100"
-         data-max-rows="1"
-         data-show-faces="false"
-         data-scope="user_likes,publish_actions,publish_stream,user_likes,friends_checkins,friends_events,friends_interests,friends_likes,friends_notes,friends_photos,friends_relationship_details,friends_status,friends_videos,read_stream">
+    <div class="content-center" id="first-section">
+      <div id="logo-image"></div>
+      <div id="main-text">
+        Love at the limit of likeing, as data approaches infinity.
+      </div>
+      <div id="login-button" onclick="logMeIn()">
+        Log in to love someone!
+      </div>
     </div>
+  </div>
 
+  <div id="footer">
     <div class="fb-like"
          data-href="http://www.thiagohersan.com/iLoveYou"
          data-layout="box_count"
@@ -129,7 +131,6 @@
          data-show-faces="false"
          data-share="false">
     </div>
-
   </div>
 
 </body>

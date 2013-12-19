@@ -1,7 +1,7 @@
 body {
 	background:white; 
 	margin: 0 auto; 
-	font-family:georgia,times,serif; 
+	font-family:'Helvetica Neue','Helvetica','lucida grande',tahoma,verdana,arial,sans-serif;
 }
 
 #header {
@@ -10,18 +10,32 @@ body {
 	left:0px;
 	background-color:#000000;
 	color:#ffffff;
-	height:32px;
 	width:100%;
+	text-align: center;
 }
 
+#footer {
+	position:fixed;
+	bottom:0px;
+	left:0px;
+	width:100%;
+	text-align: center;
+}
+
+
 #nav {
-	margin-left:50px;
+	margin: 10px auto;
+	overflow: auto;
+	width: 80%;
+	vertical-align: middle;
 }
 
 .nav-item{
 	float:left;
-	margin-left:10px;
-	margin-right:10px;
+	margin: auto auto;
+	margin-left:0px;
+	margin-right:64px;
+	vertical-align: middle;
 }
 
 .nav-item a {
@@ -32,4 +46,40 @@ body {
 
 #main-body {
 	margin-top:0px;
+	width:100%;
+	text-align: center;
+}
+
+.content-center {
+	width:80%;
+	margin: 0 auto;
+	background-color: #cccccc;
+	text-align: center;
+}
+
+#main-text{
+	text-align: center;
+	vertical-align: middle;
+	color: #000000;
+	margin: 0 auto;
+	background-color: #f8d4d8;
+	width: 50%;
+}
+
+#login-button{
+	border-width: 1px;
+	border-color: #cccccc;
+	border-style: solid;
+	border-radius: 8px;
+	padding: 10px;
+	width: 33%;
+	margin: 0 auto;
+	text-align: center;
+	vertical-align: middle;
+	background-color: #3b5998;
+	color: #ffffff;
+}
+
+#login-button:hover{
+	background-color: #5890ff;
 }
