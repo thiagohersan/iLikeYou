@@ -1,5 +1,16 @@
+<!DOCTYPE html>
 <html>
-<head></head>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>iLoveYou (on Facebook)</title>
+  <meta name="description" content="iLoveYou (on Facebook) is an app for letting someone know you love them (on Facebook).">
+  <link rel="stylesheet" type="text/css" href="css.css" />
+
+  <meta property="og:title" content="iLoveYou (on Facebook)" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="http://www.thiagohersan.com/iLoveYou" />
+  <meta property="og:image" content="http://www.thiagohersan.com/iLoveYou/imgs/heartssssss128.png" />
+</head>
 <body>
   <div id="fb-root"></div>
   <script>
@@ -22,6 +33,10 @@
         onLogIn();
       }
     });
+  };
+
+  window.onload = function(){
+    document.getElementById('main-body').style['margin-top'] = document.getElementById('header').clientHeight;
   };
 
   // Load the SDK asynchronously
@@ -83,13 +98,38 @@
 
   </script>
 
-  <div class="fb-login-button"
-       id="login-button"
-       data-width="200"
-       data-height="100"
-       data-max-rows="1"
-       data-show-faces="false"
-       data-scope="user_likes,publish_actions,publish_stream,user_likes,friends_checkins,friends_events,friends_interests,friends_likes,friends_notes,friends_photos,friends_relationship_details,friends_status,friends_videos,read_stream">
+  <div id="header">
+    <div id="nav">
+      <div class="nav-item">
+        <a href="http://thiagohersan.com/iLoveYou">iLoveYou (on Facebook)</a>
+      </div>
+      <div class="nav-item">
+      <a href="http://thiagohersan.com">thiagohersan.com</a>
+      </div>
+      <div class="nav-item">
+      <a href="http://thiagohersan.com/contact">Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="main-body">
+    <div class="fb-login-button"
+         id="login-button"
+         data-width="200"
+         data-height="100"
+         data-max-rows="1"
+         data-show-faces="false"
+         data-scope="user_likes,publish_actions,publish_stream,user_likes,friends_checkins,friends_events,friends_interests,friends_likes,friends_notes,friends_photos,friends_relationship_details,friends_status,friends_videos,read_stream">
+    </div>
+
+    <div class="fb-like"
+         data-href="http://www.thiagohersan.com/iLoveYou"
+         data-layout="box_count"
+         data-action="like"
+         data-show-faces="false"
+         data-share="false">
+    </div>
+
   </div>
 
 </body>
