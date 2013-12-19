@@ -34,6 +34,7 @@
   }(document));
 
   function onLogIn() {
+      document.getElementById("login-button").style.display = 'none';
       FB.ui({method: 'apprequests',
         message: 'Pick person to love',
         title: 'love',
@@ -83,11 +84,12 @@
 
   </script>
 
-  <div class="fb-login-button" 
-       data-width="200" 
-       data-height="100" 
+  <div class="fb-login-button"
+       id="login-button"
+       data-width="200"
+       data-height="100"
        data-max-rows="1"
-       data-show-faces="true"
+       data-show-faces="false"
        data-scope="user_likes,publish_actions,publish_stream,user_likes,friends_checkins,friends_events,friends_interests,friends_likes,friends_notes,friends_photos,friends_relationship_details,friends_status,friends_videos,read_stream">
   </div>
 
