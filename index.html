@@ -43,10 +43,6 @@
              {scope: "user_likes,publish_actions,publish_stream,user_likes,friends_checkins,friends_events,friends_interests,friends_likes,friends_notes,friends_photos,friends_relationship_details,friends_status,friends_videos,read_stream"});
   }
 
-  window.onload = function(){
-    document.getElementById('main-body').style['margin-top'] = document.getElementById('header').clientHeight+"px";
-  };
-
   function onLogIn() {
       document.getElementById("login-button").style.display = 'none';
       FB.ui({method: 'apprequests',
@@ -97,40 +93,31 @@
 
   </script>
 
-  <div id="header">
-    <div id="nav">
-      <div class="nav-item">
-        <a href="http://thiagohersan.com/iLoveYou">iLoveYou (on Facebook)</a>
-      </div>
-      <div class="nav-item">
-      <a href="http://thiagohersan.com">thiagohersan.com</a>
-      </div>
-      <div class="nav-item">
-      <a href="http://thiagohersan.com/contact">Contact</a>
-      </div>
-    </div>
-  </div>
-
   <div id="main-body">
     <div class="content-center" id="first-section">
-      <div id="logo-image"></div>
+      <div id="title">
+        iLoveYou (on Facebook)<br>
+      </div>
       <div id="main-text">
-        Love at the limit of likeing, as data approaches infinity.
+        Love at the limit of likeing, as data approaches infinity.<br>
       </div>
       <div id="login-button" onclick="logMeIn()">
-        Log in to love someone!
+        <a href="http://www.thiagohersan.com/iLoveYou/#">Log in to love someone!</a>
       </div>
     </div>
   </div>
 
-  <div id="footer">
-    <div class="fb-like"
-         data-href="http://www.thiagohersan.com/iLoveYou"
-         data-layout="box_count"
-         data-action="like"
-         data-show-faces="false"
-         data-share="false">
-    </div>
+  <div class="fb-like"
+       id="fb-like"
+       data-href="http://www.thiagohersan.com/iLoveYou"
+       data-layout="box_count"
+       data-action="like"
+       data-show-faces="false"
+       data-share="false">
+  </div>
+
+  <div id="info">
+    <a href="http://www.thiagohersan.com/" target="_blank">Thiago Hersan</a>
   </div>
 
 </body>
