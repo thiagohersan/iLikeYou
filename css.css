@@ -19,12 +19,11 @@ body {
 }
 
 .content-center {
-	width:80%;
 	margin: auto auto;
+	display: inline-block;
 	background-color: #cccccc;
 	text-align: center;
 	vertical-align: middle;
-	max-width: 800px;
 }
 
 #title{
