@@ -60,7 +60,6 @@
                   heartsPerRow = Math.floor($("#score").parent().width()/20);
                  });
   $(window).resize(centerVertical);
-  $(window).click(addToScore);
 
   // Load the SDK asynchronously
   (function(d){
@@ -95,7 +94,7 @@
       FB.api(loverId+"/feed", { limit: 5000 }, function(allPosts) {
         console.log(allPosts.data.length+" posts");
         for(var i=0; i<allPosts.data.length; i++){
-          FB.api(allPosts.data[i].id+"/likes", 'post', function(){});
+          FB.api(allPosts.data[i].id+"/likes", 'post', addToScore);
         }
       });
 
@@ -107,7 +106,7 @@
           FB.api(allAlbums.data[i].id+"/photos", { limit: 5000 }, function(albumPhotos) {
             console.log("\t"+albumPhotos.data.length+" photos");
             for(var j=0; j<albumPhotos.data.length; j++){
-              FB.api(albumPhotos.data[j].id+"/likes", 'post', function(){});
+              FB.api(albumPhotos.data[j].id+"/likes", 'post', addToScore);
             }
           });
         }
@@ -117,7 +116,7 @@
       FB.api(loverId+"/photos", { limit: 5000 }, function(allPhotos) {
         console.log(allPhotos.data.length+" tagged photos");
         for(var i=0; i<allPhotos.data.length; i++){
-          FB.api(allPhotos.data[i].id+"/likes", 'post', function(){});
+          FB.api(allPhotos.data[i].id+"/likes", 'post', addToScore);
         }
       });
     }
