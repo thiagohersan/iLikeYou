@@ -33,12 +33,21 @@
     });
   };
 
+  // Load the SDK asynchronously
+  (function(d){
+    var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement('script'); js.id = id; js.async = true;
+    js.src = "//connect.facebook.net/en_US/all.js";
+    ref.parentNode.insertBefore(js, ref);
+  }(document));
+
   function centerVertical() {
     $("#main-body").css('height', $(window).height()+"px");
     $("#first-section").css('margin-top', ($(window).height() - $("#first-section").height())/2+"px");
   };
 
-  var score, heartsPerRow, loverId, totalLikes;
+  var score, heartsPerRow, loverId;
 
   function addToScore(id, total){
     if(score%heartsPerRow == 0){
@@ -110,15 +119,6 @@
   });
   $(window).resize(centerVertical);
   //$(window).click(postCanvas);
-
-  // Load the SDK asynchronously
-  (function(d){
-    var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement('script'); js.id = id; js.async = true;
-    js.src = "//connect.facebook.net/en_US/all.js";
-    ref.parentNode.insertBefore(js, ref);
-  }(document));
 
   function logMeIn(){
     FB.login(function(response){},
