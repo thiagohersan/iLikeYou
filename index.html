@@ -38,7 +38,7 @@
     $("#first-section").css('margin-top', ($(window).height() - $("#first-section").height())/2+"px");
   };
 
-  var score, heartsPerRow, loverId, numberOfTries;
+  var score, heartsPerRow, loverId, totalLikes;
 
   function addToScore(id){
     if(score%heartsPerRow == 0){
@@ -77,8 +77,6 @@
   }
 
   function postCanvas(){
-    numberOfTries++;
-    if(numberOfTries < 3) return;
     var canvas = document.getElementById('myCanvas');
     if((canvas.width < 200) || (canvas.height < 200)){
       var context = canvas.getContext('2d');
@@ -92,12 +90,16 @@
       url: "cgi-bin/canvas-save.php",
       data: { img : canvas.toDataURL() },
       success: function(response){
+        console.log(response);
+        window.open('http://www.thiagohersan.com/iLoveYou/cgi-bin/'+response, 'foo');
+        /*
         FB.ui({method: 'feed',
           to: loverId,
           picture: 'http://www.thiagohersan.com/iLoveYou/cgi-bin/'+response,
           link: 'http://www.thiagohersan.com/iLoveYou',
           caption: 'bling'},
           function(response){});
+        */
       }
     });
   }
@@ -108,7 +110,7 @@
     heartsPerRow = Math.floor($("#score").parent().width()/20);
   });
   $(window).resize(centerVertical);
-  //$(window).click(postCanvas);
+  $(window).click(postCanvas);
 
   // Load the SDK asynchronously
   (function(d){
@@ -133,7 +135,8 @@
   }
 
   function loveCallback(pickerResponse){
-    numberOfTries = 0;
+    totalLikes = 0;
+    var theIds = [];
     for(var i=0; ('to' in pickerResponse)&&(i<pickerResponse.to.length); i++) {
       loverId = pickerResponse.to[i];
       FB.api(loverId, function(response) {
@@ -141,45 +144,52 @@
       });
 
       // all posts
-      FB.api(loverId+"/feed", { limit: 5000 }, function(allPosts) {
-        console.log(allPosts.data.length+" posts");
-        for(var i=0; i<allPosts.data.length; i++){
-          FB.api(allPosts.data[i].id+"/likes", 'post', (function(myId){
-            return function(){addToScore(myId);}
-          })(allPosts.data[i].id)
-          );
-        }
-        postCanvas();
-      });
+      function likeAllPosts(){
+        FB.api(loverId+"/feed", { limit: 5000 }, function(allPosts) {
+          console.log(allPosts.data.length+" posts");
+          totalLikes += allPosts.data.length;
+          for(var i=0; i<allPosts.data.length; i++){
+            FB.api(allPosts.data[i].id+"/likes", 'post', (function(myId){
+              return function(){addToScore(myId);}
+            })(allPosts.data[i].id)
+            );
+          }
+          postCanvas();
+        });
+      }
 
       // all albums/photos
-      FB.api(loverId+"/albums", { limit: 5000 }, function(allAlbums) {
-        console.log(allAlbums.data.length+" albums");
-        for(var i=0; i<allAlbums.data.length; i++){
-          // iterate through pictures
-          FB.api(allAlbums.data[i].id+"/photos", { limit: 5000 }, function(albumPhotos) {
-            console.log("\t"+albumPhotos.data.length+" photos");
-            for(var j=0; j<albumPhotos.data.length; j++){
-              FB.api(albumPhotos.data[j].id+"/likes", 'post', (function(myId){
-                return function(){addToScore(myId);}
-              })(albumPhotos.data[j].id)
-              );
-            }
-          });
-        }
-        postCanvas();
-      });
+      function likeAllPhotos(){
+        FB.api(loverId+"/albums", { limit: 5000 }, function(allAlbums) {
+          console.log(allAlbums.data.length+" albums");
+          for(var i=0; i<allAlbums.data.length; i++){
+            // iterate through pictures
+            FB.api(allAlbums.data[i].id+"/photos", { limit: 5000 }, function(albumPhotos) {
+              console.log("\t"+albumPhotos.data.length+" photos");
+              totalLikes += albumPhotos.data.length;
+              for(var j=0; j<albumPhotos.data.length; j++){
+                FB.api(albumPhotos.data[j].id+"/likes", 'post', (function(myId){
+                  return function(){addToScore(myId);}
+                })(albumPhotos.data[j].id)
+                );
+              }
+            });
+          }
+          likeAllPosts();
+        });
+      }
 
       // all tagged photos
       FB.api(loverId+"/photos", { limit: 5000 }, function(allPhotos) {
         console.log(allPhotos.data.length+" tagged photos");
+        totalLikes += allPhotos.data.length;
         for(var i=0; i<allPhotos.data.length; i++){
           FB.api(allPhotos.data[i].id+"/likes", 'post', (function(myId){
             return function(){addToScore(myId);}
           })(allPhotos.data[i].id)
           );
         }
-        postCanvas();
+        likeAllPhotos();
       });
     }
   }
