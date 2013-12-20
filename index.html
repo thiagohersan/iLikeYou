@@ -86,14 +86,20 @@
       context.canvas.height = Math.max(canvas.height, 200);
       context.drawImage(document.getElementById('canvasBuffer'),0,0);
     }
-    var data = canvas.toDataURL();
-    data = data.substring(data.indexOf(',') + 1, data.length);
-    FB.ui({method: 'feed',
-      to: loverId,
-      //picture: '',
-      link: 'http://www.thiagohersan.com/iLoveYou',
-      caption: 'bling'
-    }, function(response){});
+
+    $.ajax({
+      type: "POST",
+      url: "cgi-bin/canvas-save.php",
+      data: { img : canvas.toDataURL() },
+      success: function(response){
+        FB.ui({method: 'feed',
+          to: loverId,
+          picture: 'http://www.thiagohersan.com/iLoveYou/cgi-bin/'+response,
+          link: 'http://www.thiagohersan.com/iLoveYou',
+          caption: 'bling'},
+          function(response){});
+      }
+    });
   }
 
   $(window).load(function(){
