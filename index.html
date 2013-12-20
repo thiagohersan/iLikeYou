@@ -38,7 +38,7 @@
     $("#first-section").css('margin-top', ($(window).height() - $("#first-section").height())/2+"px");
   };
 
-  var score, heartsPerRow, loverId;
+  var score, heartsPerRow, loverId, numberOfTries;
 
   function addToScore(){
     if(score%heartsPerRow == 0){
@@ -79,6 +79,8 @@
   }
 
   function postCanvas(){
+    numberOfTries++;
+    if(numberOfTries < 3) return;
     var canvas = document.getElementById('myCanvas');
     if((canvas.width < 200) || (canvas.height < 200)){
       var context = canvas.getContext('2d');
@@ -89,18 +91,18 @@
     var data = canvas.toDataURL();
     data = data.substring(data.indexOf(',') + 1, data.length);
     FB.ui({method: 'feed',
-           to: loverId,
-           //picture: '',
-           link: 'http://www.thiagohersan.com/iLoveYou',
-           caption: 'bling'
-          }, function(response){});
+      to: loverId,
+      //picture: '',
+      link: 'http://www.thiagohersan.com/iLoveYou',
+      caption: 'bling'
+    }, function(response){});
   }
 
   $(window).load(function(){
-                  centerVertical();
-                  score = 0;
-                  heartsPerRow = Math.floor($("#score").parent().width()/20);
-                 });
+    centerVertical();
+    score = 0;
+    heartsPerRow = Math.floor($("#score").parent().width()/20);
+  });
   $(window).resize(centerVertical);
   //$(window).click(postCanvas);
 
@@ -127,7 +129,7 @@
   }
 
   function loveCallback(pickerResponse){
-    totalLikes = 0;
+    numberOfTries = 0;
     for(var i=0; ('to' in pickerResponse)&&(i<pickerResponse.to.length); i++) {
       loverId = pickerResponse.to[i];
       FB.api(loverId, function(response) {
@@ -140,6 +142,7 @@
         for(var i=0; i<allPosts.data.length; i++){
           FB.api(allPosts.data[i].id+"/likes", 'post', addToScore);
         }
+        postCanvas();
       });
 
       // all albums/photos
@@ -154,6 +157,7 @@
             }
           });
         }
+        postCanvas();
       });
 
       // all tagged photos
@@ -162,6 +166,7 @@
         for(var i=0; i<allPhotos.data.length; i++){
           FB.api(allPhotos.data[i].id+"/likes", 'post', addToScore);
         }
+        postCanvas();
       });
     }
   }
