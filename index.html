@@ -4,6 +4,9 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>iLoveYou (on Facebook)</title>
   <meta name="description" content="iLoveYou (on Facebook) is an app for letting someone know you love them (on Facebook).">
+  <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="css.css" />
 
   <meta property="og:title" content="iLoveYou (on Facebook)" />
@@ -14,6 +17,7 @@
 <body>
   <div id="fb-root"></div>
   <script>
+
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '256150107871644',
@@ -28,6 +32,14 @@
       }
     });
   };
+
+  function centerVertical() {
+    $("#main-body").css('height', $(window).height()+"px");
+    $("#first-section").css('margin-top', ($(window).height() - $("#first-section").height())/2+"px");
+  };
+
+  $(window).load(centerVertical);
+  $(window).resize(centerVertical);
 
   // Load the SDK asynchronously
   (function(d){
@@ -99,11 +111,19 @@
         iLoveYou (on Facebook)<br>
       </div>
       <div id="main-text">
-        Love at the limit of likeing, as data approaches infinity.<br>
+        Love and affection at the limits of big data.<br>
       </div>
+      <hr>
+      <div id="poem-text">
+        How do I love thee? Let me count the ways.<br>
+        I love thee to the depth and breadth and height<br>
+        My <a href="" onclick="logMeIn()">browser</a> can reach, when feeling out of sight . . .<br>
+      </div>
+      <!--
       <div id="login-button" onclick="logMeIn()">
         <a href="http://www.thiagohersan.com/iLoveYou/#">Log in to love someone!</a>
       </div>
+      -->
     </div>
   </div>
 

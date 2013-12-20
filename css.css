@@ -4,27 +4,22 @@ body {
 	margin:0;
 	height:100%;
 	min-height:100%;
-	font-family:'Helvetica Neue','Helvetica','lucida grande',tahoma,verdana,arial,sans-serif;
+	font-family: 'Lato', sans-serif;
+	/*font-family: 'Open Sans', sans-serif;*/
 }
 
 #main-body {
 	width:100%;
-	height: 100%;
 	text-align: center;
 	vertical-align: middle;
-	background-position: center top;
-	background-size: cover;
 	padding: 0;
 	margin: 0;
 	background-color: #fff777;
-	position: relative;
-	background-attachment: fixed;
 	overflow: scroll;
 }
 
 .content-center {
 	width:80%;
-	height: 100%;
 	margin: auto auto;
 	background-color: #cccccc;
 	text-align: center;
@@ -34,8 +29,8 @@ body {
 
 #title{
 	text-align: left;
-	font-weight:500;
 	font-size: 32pt;
+	font-weight: 300;
 	color: #000000;
 	line-height: 48pt;
 }
@@ -43,12 +38,31 @@ body {
 #main-text{
 	text-align: left;
 	vertical-align: middle;
-	font-weight:300;
 	font-size: 16pt;
+	font-weight: 300;
 	color: #000000;
 	line-height: 24pt;
 	margin: 0 auto;
-	background-color: #f8d4d8;
+}
+
+#poem-text{
+	text-align: left;
+	vertical-align: middle;
+	font-size: 16pt;
+	font-weight: 300;
+	color: #000000;
+	margin: 0 auto;
+}
+
+#poem-text a{
+	color: #3b5998;
+	font-weight: 700;
+	text-decoration: none;
+}
+
+#poem-text a:hover{
+	color: #000000;
+	font-weight: 700;
 }
 
 #login-button{
