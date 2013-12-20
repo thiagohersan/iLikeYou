@@ -14,14 +14,14 @@ body {
 	vertical-align: middle;
 	padding: 0;
 	margin: 0;
-	background-color: #fff777;
+	background-color: #ffffff;
 	overflow: scroll;
 }
 
 .content-center {
 	margin: auto auto;
 	display: inline-block;
-	background-color: #cccccc;
+	background-color: #ffffff;
 	text-align: center;
 	vertical-align: middle;
 }
@@ -79,4 +79,9 @@ body {
 #info a {
 	color: #000000;
 	text-decoration: none;
+}
+
+.fb_iframe_widget_lift {
+	transition:all .5s;
+	margin-top:-333px;
 }
