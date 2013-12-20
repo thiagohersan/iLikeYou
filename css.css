@@ -64,6 +64,10 @@ body {
 	font-weight: 700;
 }
 
+#score{
+	text-align: left;
+}
+
 #fb-like {
 	position:fixed;
 	bottom:10px;
@@ -84,4 +88,8 @@ body {
 .fb_iframe_widget_lift {
 	transition:all .5s;
 	margin-top:-333px;
+}
+
+.invisible{
+	display: none;
 }

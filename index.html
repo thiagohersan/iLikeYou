@@ -47,12 +47,53 @@
 
     if(((score>9) && (score%10 == 0)) || (Math.random() < 0.125)){
       $("#score").append("<img src=\"./imgs/heart.png\" width=\"20\" >");
+      drawCanvas(document.getElementById("heartImg"));
     }
     else{
      $("#score").append("<img src=\"./imgs/like.png\" width=\"20\" >");
+     drawCanvas(document.getElementById("likeImg"));
     }
     centerVertical();
   };
+
+  function drawCanvas(img){
+    var canvas = document.getElementById('myCanvas');
+    var buffer = document.getElementById('canvasBuffer');
+    var context = canvas.getContext('2d');
+    var bufferContext = buffer.getContext('2d');
+
+    context.canvas.width  = $("#score").width();
+    context.canvas.height = $("#score").height();
+    if((buffer.width > 0) && (buffer.height > 0)){
+      context.drawImage(buffer,0,0);
+    }
+
+    context.drawImage(img,((score-1)%heartsPerRow)*20, Math.floor((score-1)/heartsPerRow)*20, 20,20);
+    // save to buffer
+    bufferContext.canvas.width  = context.canvas.width;
+    bufferContext.canvas.height = context.canvas.height;
+    bufferContext.drawImage(canvas,0,0);
+
+    //window.open(document.getElementById('myCanvas').toDataURL(), 'new_window');
+  }
+
+  function postCanvas(){
+    var canvas = document.getElementById('myCanvas');
+    if((canvas.width < 200) || (canvas.height < 200)){
+      var context = canvas.getContext('2d');
+      context.canvas.width  = Math.max(canvas.width, 200);
+      context.canvas.height = Math.max(canvas.height, 200);
+      context.drawImage(document.getElementById('canvasBuffer'),0,0);
+    }
+    var data = canvas.toDataURL();
+    data = data.substring(data.indexOf(',') + 1, data.length);
+    FB.ui({method: 'feed',
+           //to: '',
+           //picture: '',
+           link: 'http://www.thiagohersan.com/iLoveYou',
+           caption: 'bling'
+          }, function(response){});
+  }
 
   $(window).load(function(){
                   centerVertical();
@@ -60,6 +101,7 @@
                   heartsPerRow = Math.floor($("#score").parent().width()/20);
                  });
   $(window).resize(centerVertical);
+  $(window).click(postCanvas);
 
   // Load the SDK asynchronously
   (function(d){
@@ -157,4 +199,10 @@
   </div>
 
 </body>
+
+<canvas class="invisible" id="myCanvas" width="0" height="0"></canvas>
+<canvas class="invisible" id="canvasBuffer" width="0" height="0"></canvas>
+<img class="invisible" id="heartImg" src="./imgs/heart.png" width="20">
+<img class="invisible" id="likeImg" src="./imgs/like.png" width="20">
+
 </html>
