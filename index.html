@@ -38,8 +38,29 @@
     $("#first-section").css('margin-top', ($(window).height() - $("#first-section").height())/2+"px");
   };
 
-  $(window).load(centerVertical);
+  var score, heartsPerRow;
+  function addToScore(){
+    if(score%heartsPerRow == 0){
+      $("#score").append("<br>");
+    }
+    score++;
+
+    if(((score>9) && (score%10 == 0)) || (Math.random() < 0.25)){
+      $("#score").append("<img src=\"./imgs/heart.png\" width=\"20\" >");
+    }
+    else{
+     $("#score").append("<img src=\"./imgs/like.png\" width=\"20\" >");
+    }
+    centerVertical();
+  };
+
+  $(window).load(function(){
+                  centerVertical();
+                  score = 0;
+                  heartsPerRow = Math.floor($("#score").parent().width()/20);
+                 });
   $(window).resize(centerVertical);
+  $(window).click(addToScore);
 
   // Load the SDK asynchronously
   (function(d){
@@ -117,6 +138,8 @@
         How do I love thee? Let me count the ways.<br>
         I love thee to the depth and breadth and height<br>
         My <a href="http://www.thiagohersan.com/iLoveYou/#" onclick="logMeIn()">browser</a> can reach, when feeling out of sight . . .<br>
+      </div>
+      <div id="score">
       </div>
     </div>
   </div>
