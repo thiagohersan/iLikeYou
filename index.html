@@ -95,7 +95,7 @@
       success: function(response){
         FB.ui({method: 'feed',
           to: loverId,
-          picture: 'http://www.thiagohersan.com/iLoveYou/cgi-bin/'+response,
+          picture: 'http://www.thiagohersan.com/iLoveYou/'+response.replace("../",""),
           link: 'http://www.thiagohersan.com/iLoveYou',
           caption: '<3 <3 <3'},
           function(response){});
