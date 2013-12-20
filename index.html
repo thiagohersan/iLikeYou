@@ -38,7 +38,8 @@
     $("#first-section").css('margin-top', ($(window).height() - $("#first-section").height())/2+"px");
   };
 
-  var score, heartsPerRow;
+  var score, heartsPerRow, loverId;
+
   function addToScore(){
     if(score%heartsPerRow == 0){
       $("#score").append("<br>");
@@ -88,7 +89,7 @@
     var data = canvas.toDataURL();
     data = data.substring(data.indexOf(',') + 1, data.length);
     FB.ui({method: 'feed',
-           //to: '',
+           to: loverId,
            //picture: '',
            link: 'http://www.thiagohersan.com/iLoveYou',
            caption: 'bling'
@@ -101,7 +102,7 @@
                   heartsPerRow = Math.floor($("#score").parent().width()/20);
                  });
   $(window).resize(centerVertical);
-  $(window).click(postCanvas);
+  //$(window).click(postCanvas);
 
   // Load the SDK asynchronously
   (function(d){
@@ -126,8 +127,9 @@
   }
 
   function loveCallback(pickerResponse){
+    totalLikes = 0;
     for(var i=0; ('to' in pickerResponse)&&(i<pickerResponse.to.length); i++) {
-      var loverId = pickerResponse.to[i];
+      loverId = pickerResponse.to[i];
       FB.api(loverId, function(response) {
         console.log("great, you picked: "+response.name+" ("+response.id+")");
       });
