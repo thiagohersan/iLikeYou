@@ -102,12 +102,14 @@
       url: "cgi-bin/canvas-save.php",
       data: { img : canvas.toDataURL() },
       success: function(response){
-        FB.ui({method: 'feed',
-          to: loverId,
-          picture: 'http://www.thiagohersan.com/iLoveYou/'+response.replace("../",""),
-          link: 'http://www.thiagohersan.com/iLoveYou',
-          caption: 'A token of my affection <3 <3 <3'},
-          function(response){});
+        FB.api('/me/photos',
+          'post',
+          { name: '<3',
+          tags: [{'x':5, 'y':5, 'tag_uid':loverId}],
+          url: 'http://www.thiagohersan.com/iLoveYou/'+response.replace("../","")},
+          function(response){
+            FB.api(response['id']+"/likes", 'post', function(response){});
+        });
       }
     });
   }
