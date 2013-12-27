@@ -169,21 +169,26 @@
           totalLikes = theIds__.length;
           // now make the like calls
           for (var i=0; i<theIds__.length; i++) {
-            FB.api(theIds__[i]+"/likes", 'post', (function(myId){
-              return function(response){
-                if(response){
-                  addToScore(myId);
-                }
-                else{
-                  console.log(myId+" :: "+response.error.message);
-                  totalLikes--;
-                  if(score >= totalLikes){
-                    postCanvas();
+            function prepareApiCall(theId){
+              return function(){
+                FB.api(theId+"/likes", 'post', (function(myId){
+                  return function(response){
+                    if(response){
+                      addToScore(myId);
+                    }
+                    else{
+                      console.log(myId+" :: "+response.error.message);
+                      totalLikes--;
+                      if(score >= totalLikes){
+                        postCanvas();
+                      }
+                    }
                   }
-                }
+                })(theId)
+                );
               }
-            })(theIds__[i])
-            );
+            }
+            setTimeout(prepareApiCall(theIds__[i]), i*200);
           }
         });
       }
