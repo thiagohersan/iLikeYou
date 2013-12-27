@@ -149,10 +149,21 @@
       // all posts
       function likeAllPosts(theIds__){
         FB.api(loverId+"/feed", { limit: 5000 }, function(allPosts) {
-          console.log(allPosts.data.length+" posts");
+          var numPosts = 0, numComments = 0;
           for(var i=0; i<allPosts.data.length; i++){
             theIds__.push(allPosts.data[i].id);
+            numPosts++;
+
+            // all comments
+            for(var j=0; ('comments' in allPosts.data[i])&&(j<allPosts.data[i].comments.data.length); j++){
+              if(allPosts.data[i].comments.data[j].from.id == loverId){
+                theIds__.push(allPosts.data[i].comments.data[j].id);
+                numComments++;
+              }
+            }
           }
+          console.log(numPosts+" posts");
+          console.log(numComments+" comments");
 
           totalLikes = theIds__.length;
           // now make the like calls
