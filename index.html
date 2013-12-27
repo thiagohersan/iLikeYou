@@ -75,13 +75,16 @@
     var context = canvas.getContext('2d');
     var bufferContext = buffer.getContext('2d');
 
+    var px = ((score-1)%heartsPerRow)*20;
+    var py = Math.floor((score-1)/heartsPerRow)*20;
+
     context.canvas.width  = $("#score").width();
-    context.canvas.height = $("#score").height();
+    context.canvas.height = py+20;
     if((buffer.width > 0) && (buffer.height > 0)){
       context.drawImage(buffer,0,0);
     }
 
-    context.drawImage(img,((score-1)%heartsPerRow)*20, Math.floor((score-1)/heartsPerRow)*20, 20,20);
+    context.drawImage(img, px, py, 20,20);
     // save to buffer
     bufferContext.canvas.width  = context.canvas.width;
     bufferContext.canvas.height = context.canvas.height;
@@ -120,7 +123,6 @@
     heartsPerRow = Math.floor($("#score").parent().width()/20);
   });
   $(window).resize(centerVertical);
-  //$(window).click(postCanvas);
 
   function logMeIn(){
     FB.login(function(response){},
