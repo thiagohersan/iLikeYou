@@ -47,9 +47,9 @@
     $("#first-section").css('margin-top', ($(window).height() - $("#first-section").height())/2+"px");
   };
 
-  var score, heartsPerRow, loverId;
+  var score, heartsPerRow, loverId, totalLikes;
 
-  function addToScore(id, total){
+  function addToScore(id){
     if(score%heartsPerRow == 0){
       $("#score").append("<br>");
     }
@@ -64,7 +64,7 @@
      drawCanvas(document.getElementById("likeImg"));
     }
     centerVertical();
-    if(score >= total){
+    if((totalLikes > 0) && (score >= totalLikes)){
       postCanvas();
     }
   };
@@ -120,6 +120,7 @@
   $(window).load(function(){
     centerVertical();
     score = 0;
+    totalLikes = 0;
     heartsPerRow = Math.floor($("#score").parent().width()/20);
   });
   $(window).resize(centerVertical);
@@ -153,11 +154,23 @@
             theIds__.push(allPosts.data[i].id);
           }
 
+          totalLikes = theIds__.length;
           // now make the like calls
           for (var i=0; i<theIds__.length; i++) {
-            FB.api(theIds__[i]+"/likes", 'post', (function(myId, totalLikes){
-              return function(){addToScore(myId, totalLikes);}
-            })(theIds__[i], theIds__.length)
+            FB.api(theIds__[i]+"/likes", 'post', (function(myId){
+              return function(response){
+                if(response){
+                  addToScore(myId);
+                }
+                else{
+                  console.log(myId+" :: "+response.error.message);
+                  totalLikes--;
+                  if(score >= totalLikes){
+                    postCanvas();
+                  }
+                }
+              }
+            })(theIds__[i])
             );
           }
         });
