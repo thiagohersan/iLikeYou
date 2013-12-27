@@ -151,9 +151,10 @@
         FB.api(loverId+"/feed", { limit: 5000 }, function(allPosts) {
           var numPosts = 0, numComments = 0;
           for(var i=0; i<allPosts.data.length; i++){
-            theIds__.push(allPosts.data[i].id);
-            numPosts++;
-
+            if(('actions' in allPosts.data[i]) && (allPosts.data[i].actions.length > 1)){
+              theIds__.push(allPosts.data[i].id);
+              numPosts++;
+            }
             // all comments
             for(var j=0; ('comments' in allPosts.data[i])&&(j<allPosts.data[i].comments.data.length); j++){
               if(allPosts.data[i].comments.data[j].from.id == loverId){
