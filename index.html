@@ -179,12 +179,7 @@
           // now make the like calls
           for (var i=0; i<theIds__.length; i++) {
             function prepareApiCall(theId){
-              return function(){
-                FB.api(theId+"/likes", 'post', (function(myId){
-                  return function(response){ addToScore(response, myId); }
-                })(theId)
-                );
-              }
+              return function(){ FB.api(theId+"/likes", 'post', function(response){ addToScore(response, theId); }); }
             }
             setTimeout(prepareApiCall(theIds__[i]), i*200);
           }
