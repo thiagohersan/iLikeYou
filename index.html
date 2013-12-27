@@ -49,21 +49,28 @@
 
   var score, heartsPerRow, loverId, totalLikes;
 
-  function addToScore(id){
-    if(score%heartsPerRow == 0){
-      $("#score").append("<br>");
-    }
-    score++;
+  function addToScore(response, id){
+    if(response){
+      if(score%heartsPerRow == 0){
+        $("#score").append("<br>");
+      }
+      score++;
 
-    if((parseInt(id.slice(-1))%10) < 2){
-      $("#score").append("<img src=\"./imgs/heart.png\" width=\"20\" >");
-      drawCanvas(document.getElementById("heartImg"));
+      if((parseInt(id.slice(-1))%10) < 2){
+        $("#score").append("<img src=\"./imgs/heart.png\" width=\"20\" >");
+        drawCanvas(document.getElementById("heartImg"));
+      }
+      else{
+       $("#score").append("<img src=\"./imgs/like.png\" width=\"20\" >");
+       drawCanvas(document.getElementById("likeImg"));
+      }
+      centerVertical();
     }
     else{
-     $("#score").append("<img src=\"./imgs/like.png\" width=\"20\" >");
-     drawCanvas(document.getElementById("likeImg"));
+      console.log(myId+" :: "+response.error.message);
+      totalLikes--;
     }
-    centerVertical();
+
     if((totalLikes > 0) && (score >= totalLikes)){
       postCanvas();
     }
@@ -172,18 +179,7 @@
             function prepareApiCall(theId){
               return function(){
                 FB.api(theId+"/likes", 'post', (function(myId){
-                  return function(response){
-                    if(response){
-                      addToScore(myId);
-                    }
-                    else{
-                      console.log(myId+" :: "+response.error.message);
-                      totalLikes--;
-                      if(score >= totalLikes){
-                        postCanvas();
-                      }
-                    }
-                  }
+                  return function(response){ addToScore(response, myId); }
                 })(theId)
                 );
               }
