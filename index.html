@@ -171,6 +171,8 @@
           console.log(numComments+" comments");
 
           totalLikes = theIds__.length;
+          console.log("for a total of "+totalLikes+" things to like");
+
           // now make the like calls
           for (var i=0; i<theIds__.length; i++) {
             function prepareApiCall(theId){
@@ -181,11 +183,12 @@
         });
       }
 
+      var numPhotos = 0, numAlbums = 0, totalAlbums = 0;
       // all albums/photos
       function likeAllPhotos(theIds_){
         FB.api(loverId+"/albums", { limit: 5000 }, function(allAlbums) {
           console.log(allAlbums.data.length+" albums");
-          var numPhotos = 0;
+          totalAlbums = allAlbums.data.length;
           for(var i=0; i<allAlbums.data.length; i++){
             // like albums
             theIds_.push(allAlbums.data[i].id);
@@ -195,9 +198,11 @@
                 theIds_.push(albumPhotos.data[j].id);
                 numPhotos++;
               }
+              if(++numAlbums >= totalAlbums){
+                console.log(numPhotos+" photos");
+              }
             });
           }
-          console.log(numPhotos+" photos");
           likeAllPosts(theIds_);
         });
       }
