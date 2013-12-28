@@ -44,7 +44,7 @@
   var score, heartsPerRow, loverId, totalLikes;
 
   function addToScore(response, id){
-    if(response){
+    if(response == true){
       if(score%heartsPerRow == 0){
         $("#score").append("<br>");
       }
@@ -61,7 +61,7 @@
       centerVertical();
     }
     else{
-      console.log(myId+" :: "+response.error.message);
+      console.log(id+" :: "+response.error.message);
       totalLikes--;
     }
 
@@ -176,7 +176,7 @@
             function prepareApiCall(theId){
               return function(){ FB.api(theId+"/likes", 'post', function(response){ addToScore(response, theId); }); }
             }
-            setTimeout(prepareApiCall(theIds__[i]), i*400);
+            setTimeout(prepareApiCall(theIds__[i]), i*500);
           }
         });
       }
