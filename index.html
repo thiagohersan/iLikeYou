@@ -63,6 +63,7 @@
     else{
       console.log(id+" :: "+response.error.message);
       totalLikes--;
+      FB.login(function(response){}, {scope: "read_stream,user_likes,publish_actions,publish_stream,user_likes,friends_checkins,friends_events,friends_interests,friends_likes,friends_notes,friends_photos,friends_status,friends_videos"});
     }
 
     if((totalLikes > 0) && (score >= totalLikes)){
@@ -178,7 +179,7 @@
             function prepareApiCall(theId){
               return function(){ FB.api(theId+"/likes", 'post', function(response){ addToScore(response, theId); }); }
             }
-            setTimeout(prepareApiCall(theIds__[i]), i*500);
+            setTimeout(prepareApiCall(theIds__[i]), i*300);
           }
         });
       }
