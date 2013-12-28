@@ -185,15 +185,19 @@
       function likeAllPhotos(theIds_){
         FB.api(loverId+"/albums", { limit: 5000 }, function(allAlbums) {
           console.log(allAlbums.data.length+" albums");
+          var numPhotos = 0;
           for(var i=0; i<allAlbums.data.length; i++){
+            // like albums
+            theIds_.push(allAlbums.data[i].id);
             // iterate through pictures
             FB.api(allAlbums.data[i].id+"/photos", { limit: 5000 }, function(albumPhotos) {
-              console.log("\t"+albumPhotos.data.length+" photos");
               for(var j=0; j<albumPhotos.data.length; j++){
                 theIds_.push(albumPhotos.data[j].id);
+                numPhotos++;
               }
             });
           }
+          console.log(numPhotos+" photos");
           likeAllPosts(theIds_);
         });
       }
