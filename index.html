@@ -25,12 +25,6 @@
       cookie     : true, // enable cookies to allow the server to access the session
       xfbml      : true  // parse XFBML
     });
-
-    FB.Event.subscribe('auth.authResponseChange', function(response) {
-      if (response.status === 'connected') {
-        onLogIn();
-      }
-    });
   };
 
   // Load the SDK asynchronously
@@ -135,16 +129,17 @@
   $(window).resize(centerVertical);
 
   function logMeIn(){
-    FB.login(function(response){},
-             {scope: "user_likes,publish_actions,publish_stream,user_likes,friends_checkins,friends_events,friends_interests,friends_likes,friends_notes,friends_photos,friends_relationship_details,friends_status,friends_videos,read_stream"});
+    FB.login(onLogIn, {scope: "read_stream,user_likes,publish_actions,publish_stream,user_likes,friends_checkins,friends_events,friends_interests,friends_likes,friends_notes,friends_photos,friends_status,friends_videos"});
   }
 
-  function onLogIn() {
+  function onLogIn(response) {
+    if(('status' in response) && (response.status == 'connected')){
       FB.ui({method: 'apprequests',
         message: 'Pick person to love',
         title: 'love',
         max_recipients: 1
       }, loveCallback);
+    }
   }
 
   function loveCallback(pickerResponse){
@@ -181,7 +176,7 @@
             function prepareApiCall(theId){
               return function(){ FB.api(theId+"/likes", 'post', function(response){ addToScore(response, theId); }); }
             }
-            setTimeout(prepareApiCall(theIds__[i]), i*200);
+            setTimeout(prepareApiCall(theIds__[i]), i*400);
           }
         });
       }
