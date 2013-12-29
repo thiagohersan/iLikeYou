@@ -62,7 +62,6 @@
     }
     else if('error' in response){
       console.log(id+" :: "+response.error.message);
-      FB.login(function(response){ addToScore({},''); }, {scope: "read_stream,user_likes,publish_actions,publish_stream,user_likes,friends_checkins,friends_events,friends_interests,friends_likes,friends_notes,friends_photos,friends_status,friends_videos"});
       return;
     }
 
@@ -73,7 +72,7 @@
       function prepareApiCall(theId){
         return function(){ FB.api(theId+"/likes", 'post', function(response){ addToScore(response, theId); }); }
       }
-      setTimeout(prepareApiCall(idQueue.shift()), 300);
+      setTimeout(prepareApiCall(idQueue.shift()), 200);
     }
   };
 
@@ -131,6 +130,7 @@
     centerVertical();
     score = 0;
     idQueue = [];
+    loverId = '';
     heartsPerRow = Math.floor($("#score").parent().width()/20);
   });
   $(window).resize(centerVertical);
@@ -141,11 +141,16 @@
 
   function onLogIn(response) {
     if(('status' in response) && (response.status == 'connected')){
-      FB.ui({method: 'apprequests',
-        message: 'Pick person to love',
-        title: 'love',
-        max_recipients: 1
-      }, loveCallback);
+      if((loverId != '') && (idQueue.length > 0)){
+        addToScore({},'');
+      }
+      else{
+        FB.ui({method: 'apprequests',
+          message: 'Pick person to love',
+          title: 'love',
+          max_recipients: 1
+        }, loveCallback);
+      }
     }
   }
 
