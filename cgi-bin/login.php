@@ -13,19 +13,20 @@
         'allowSignedRequest' => false
         ));
     }
-    $_SESSION["configs"] = $configs_;
+    $_SESSION['configs'] = $configs_;
   }
 
   if(!array_key_exists("facebooks", $_SESSION)){
-    $configs = $_SESSION["configs"];
+    $configs = $_SESSION['configs'];
     $facebooks_ = array();
     foreach ($configs as $key => $thisConfig) {
       $facebooks_[$key] = new Facebook($thisConfig);
     }
-    $_SESSION["facebooks"] = $facebooks_;
+    $_SESSION['facebooks'] = $facebooks_;
+    $_SESSION['configs'] = $configs;
   }
 
-  $facebooks = $_SESSION["facebooks"];
+  $facebooks = $_SESSION['facebooks'];
   $allLoggedIn = true;
 
   foreach ($facebooks as $key => $thisFacebook) {
