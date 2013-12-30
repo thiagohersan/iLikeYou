@@ -4,7 +4,7 @@
 
   if(!array_key_exists("configs", $_SESSION)){
     $configs_ = array();
-    $oauthXml = simplexml_load_file('oauth.xml');
+    $oauthXml = simplexml_load_file('oauth.php');
 
     foreach ($oauthXml as $myApp_) {
       array_push($configs_, array(
