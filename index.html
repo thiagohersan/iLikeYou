@@ -134,7 +134,6 @@
       url: "cgi-bin/canvas-save.php",
       data: { img : canvas.toDataURL() },
       success: function(response){
-        /*
         FB.api('/me/photos',
           'post',
           { name: '<3',
@@ -143,7 +142,6 @@
           function(response){
             FB.api(response['id']+"/likes", 'post', function(response){});
         });
-        */
       }
     });
   }
