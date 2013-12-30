@@ -20,7 +20,8 @@
     $configs = $_SESSION['configs'];
     $facebooks_ = array();
     foreach ($configs as $key => $thisConfig) {
-      $facebooks_[$key] = new Facebook($thisConfig);
+      $facebook_ = new Facebook($thisConfig);
+      array_push($facebooks_, $facebook_);
     }
     $_SESSION['facebooks'] = $facebooks_;
     $_SESSION['configs'] = $configs;
