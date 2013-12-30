@@ -48,7 +48,7 @@
     $("#first-section").css('margin-top', ($(window).height() - $("#first-section").height())/2+"px");
   };
 
-  var score, heartsPerRow, loverId, idQueue;
+  var score, heartsPerRow, loverId, idQueue, currentDelay;
 
   function addToScore(response, id){
     if(response == true){
@@ -69,6 +69,9 @@
     }
     else if('error' in response){
       console.log(id+" :: "+response.error.message);
+      if(response.error.message.indexOf("many actions") != -1){
+        currentDelay = 3000;
+      }
     }
 
     if(idQueue.length < 1){
@@ -88,7 +91,10 @@
           });
         }
       }
-      setTimeout(prepareApiCall(idQueue.shift()), 50);
+      setTimeout(prepareApiCall(idQueue.shift()), currentDelay);
+      if(currentDelay > 50){
+        currentDelay = 50;
+      }
     }
   };
 
@@ -147,6 +153,7 @@
     score = 0;
     idQueue = [];
     loverId = '';
+    currentDelay = 50;
     heartsPerRow = Math.floor($("#score").parent().width()/20);
   });
   $(window).resize(centerVertical);
