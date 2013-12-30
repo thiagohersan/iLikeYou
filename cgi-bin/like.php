@@ -13,7 +13,7 @@
 		$facebook = new Facebook($configs[$appIndex]);
 		$apiRet = $facebook->api('/'.$likeId.'/likes', 'post');
 	} catch (Exception $e) {
-		$apiRet = array('error' => array('message' => 'facebook exception in php file'));
+		$apiRet = array('error' => array('message' => 'from php: '.$e->getMessage()));
 	}
 
 	$ret = json_encode($apiRet);
