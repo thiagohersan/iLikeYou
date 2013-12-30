@@ -2,9 +2,6 @@
 	session_start();
 	require_once('php-sdk/facebook.php');
 
-	ini_set("log_errors", 1);
-	ini_set("error_log", "./errorlog.log");
-
 	$configs = $_SESSION['configs'];
 	$likeId = (string)$_POST['id'];
 	$appIndex = ($_POST['index'])%(count($configs));
