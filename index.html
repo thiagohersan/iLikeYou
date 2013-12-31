@@ -184,7 +184,7 @@
       return o.name == "Like";
     }
 
-    for(var i=0; ('to' in pickerResponse)&&(i<pickerResponse.to.length); i++) {
+    for(var i=0; (pickerResponse != null)&&('to' in pickerResponse)&&(i<pickerResponse.to.length); i++) {
       loverId = pickerResponse.to[i];
       FB.api(loverId, function(response) {
         console.log("great, you picked: "+response.name+" ("+response.id+")");
