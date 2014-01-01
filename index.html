@@ -30,7 +30,6 @@
     FB.Event.subscribe('auth.authResponseChange', function(response) {
       if (response.status == 'connected') {
         myId = response.authResponse.userID;
-        onLogIn(response);
       }
     });
   };
@@ -78,16 +77,6 @@
     else{
       function prepareApiCall(theId){
         return function(){ FB.api(theId+"/likes", 'post', function(response){ addToScore(response, theId); }); }
-        return function(){
-          $.ajax({
-            type: "POST",
-            url: "cgi-bin/like.php",
-            data: { id: theId, index: score },
-            success: function(response){
-              addToScore(JSON.parse(response), theId);
-            }
-          });
-        }
       }
       setTimeout(prepareApiCall(idQueue.shift()), currentDelay);
     }
@@ -271,7 +260,7 @@
       <div id="poem-text">
         How do I love thee? Let me count the ways.<br>
         I love thee to the depth and breadth and height<br>
-        My <a href="http://www.thiagohersan.com/iLoveYou/cgi-bin/login.php">browser</a> can reach, when feeling out of sight . . .<br>
+        My <a href="http://www.thiagohersan.com/iLoveYou/#" onclick="logMeIn()">browser</a> can reach, when feeling out of sight . . .<br>
       </div>
       <div id="score">
       </div>
