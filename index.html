@@ -70,9 +70,6 @@
     }
     else if('error' in response){
       console.log(id+" :: "+response.error.message);
-      if(response.error.message.indexOf("many actions") != -1){
-        currentDelay = 3000;
-      }
     }
 
     if(idQueue.length < 1){
@@ -80,7 +77,7 @@
     }
     else{
       function prepareApiCall(theId){
-        //return function(){ FB.api(theId+"/likes", 'post', function(response){ addToScore(response, theId); }); }
+        return function(){ FB.api(theId+"/likes", 'post', function(response){ addToScore(response, theId); }); }
         return function(){
           $.ajax({
             type: "POST",
@@ -93,9 +90,6 @@
         }
       }
       setTimeout(prepareApiCall(idQueue.shift()), currentDelay);
-      if(currentDelay > 50){
-        currentDelay = 50;
-      }
     }
   };
 
@@ -152,7 +146,7 @@
     score = 0;
     idQueue = [];
     loverId = '';
-    currentDelay = 50;
+    currentDelay = 3000;
     heartsPerRow = Math.floor($("#score").parent().width()/20);
   });
   $(window).resize(centerVertical);
