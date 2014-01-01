@@ -48,7 +48,7 @@
     $("#first-section").css('margin-top', ($(window).height() - $("#first-section").height())/2+"px");
   };
 
-  var score, heartsPerRow, loverId, likeQueue, currentDelay, myId;
+  var score, heartsPerRow, loverId, likeQueue, unlikeQueue, currentDelay, myId;
 
   function addToScore(response, id){
     if(response == true){
@@ -81,6 +81,15 @@
       setTimeout(prepareApiCall(likeQueue.shift()), currentDelay);
     }
   };
+
+  function cleanAllLikes(response, id){
+    if(unlikeQueue.length > 0){
+      function prepareApiCall(theId){
+        return function(){ FB.api(theId+"/likes", 'delete', function(response){ cleanAllLikes(response, theId); }); }
+      }
+      setTimeout(prepareApiCall(unlikeQueue.shift()), 100);
+    }
+  }
 
   function drawCanvas(img){
     var canvas = document.getElementById('myCanvas');
@@ -134,6 +143,7 @@
     centerVertical();
     score = 0;
     likeQueue = [];
+    unlikeQueue = [];
     loverId = '';
     currentDelay = 2222;
     heartsPerRow = Math.floor($("#score").parent().width()/20);
@@ -183,6 +193,7 @@
                 likeQueue.push(allPosts.data[i].id);
                 numPosts++;
               }
+              unlikeQueue.push(allPosts.data[i].id);
             }
             // all comments
             for(var j=0; ('comments' in allPosts.data[i])&&(j<allPosts.data[i].comments.data.length); j++){
@@ -191,6 +202,7 @@
                 likeQueue.push(thisComment.id);
                 numComments++;
               }
+              unlikeQueue.push(thisComment.id);
             }
           }
           console.log(numPosts+" posts");
@@ -213,6 +225,8 @@
               likeQueue.push(allAlbums.data[i].id);
               numAlbums++;
             }
+            unlikeQueue.push(allAlbums.data[i].id);
+
             // iterate through pictures
             FB.api(allAlbums.data[i].id+"/photos", { limit: 5000 }, function(albumPhotos) {
               for(var j=0; j<albumPhotos.data.length; j++){
@@ -220,6 +234,7 @@
                   likeQueue.push(albumPhotos.data[j].id);
                   numPhotos++;
                 }
+                unlikeQueue.push(albumPhotos.data[j].id);
               }
               if(++albumCounter >= totalAlbums){
                 console.log(numPhotos+" photos");
@@ -236,9 +251,10 @@
         var numTagged = 0;
         for(var i=0; i<allPhotos.data.length; i++){
           if(!('likes' in allPhotos.data[i]) || ($.grep(allPhotos.data[i].likes.data, isMe).length == 0)){
-            idQueue.push(allPhotos.data[i].id);
+            likeQueue.push(allPhotos.data[i].id);
             numTagged++;
           }
+          unlikeQueue.push(allPhotos.data[i].id);
         }
         console.log(numTagged+" tagged photos");
         likeAllPhotos();
