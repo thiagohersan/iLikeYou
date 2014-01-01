@@ -19,6 +19,15 @@
   <div id="fb-root"></div>
   <script>
 
+  // Load the SDK asynchronously
+  (function(d){
+    var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement('script'); js.id = id; js.async = true;
+    js.src = "//connect.facebook.net/en_US/all.js";
+    ref.parentNode.insertBefore(js, ref);
+  }(document));
+
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '256150107871644',
@@ -33,15 +42,6 @@
       }
     });
   };
-
-  // Load the SDK asynchronously
-  (function(d){
-    var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement('script'); js.id = id; js.async = true;
-    js.src = "//connect.facebook.net/en_US/all.js";
-    ref.parentNode.insertBefore(js, ref);
-  }(document));
 
   function centerVertical() {
     $("#main-body").css('height', $(window).height()+"px");
