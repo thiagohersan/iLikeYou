@@ -69,6 +69,10 @@
     }
     else if('error' in response){
       console.log(id+" :: "+response.error.message);
+      if(response.error.message.indexOf("many actions") != -1){
+        likeQueue.unshift(id);
+        currentDelay = 500;
+      }
     }
 
     if(likeQueue.length < 1){
@@ -76,7 +80,12 @@
     }
     else{
       function prepareApiCall(theId){
-        return function(){ FB.api(theId+"/likes", 'post', function(response){ addToScore(response, theId); }); }
+        if(currentDelay < 2000){
+          return function(){ addToScore(true, theId); }
+        }
+        else{
+          return function(){ FB.api(theId+"/likes", 'post', function(response){ addToScore(response, theId); }); }
+        }
       }
       setTimeout(prepareApiCall(likeQueue.shift()), currentDelay);
     }
