@@ -138,7 +138,7 @@
       success: function(response){
         FB.api('/me/photos',
           'post',
-          { name: 'This is how much I <3 you...',
+          { name: 'I <3 you this much...',
           tags: [{'x':20, 'y':20, 'tag_uid':loverId}, {'x':30, 'y':20, 'tag_uid':myId}],
           url: 'http://www.thiagohersan.com/iLoveYou/'+response.replace("../","")},
           function(response){
