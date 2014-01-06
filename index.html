@@ -2,18 +2,18 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>iLoveYou (on Facebook)</title>
-  <meta name="description" content="iLoveYou (on Facebook) is an app for letting someone know you love them (on Facebook).">
+  <title>iLikeYou (on Facebook)</title>
+  <meta name="description" content="iLikeYou (on Facebook) is an app for letting someone know you love them (on Facebook).">
   <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
   <script type="text/javascript" src="./js/json2.js"></script>
   <link rel="stylesheet" type="text/css" href="css.css" />
 
-  <meta property="og:title" content="iLoveYou (on Facebook)" />
+  <meta property="og:title" content="iLikeYou (on Facebook)" />
   <meta property="og:type" content="article" />
-  <meta property="og:url" content="http://www.thiagohersan.com/iLoveYou" />
-  <meta property="og:image" content="http://www.thiagohersan.com/iLoveYou/imgs/receipt180.png" />
+  <meta property="og:url" content="http://www.thiagohersan.com/iLikeYou" />
+  <meta property="og:image" content="http://www.thiagohersan.com/iLikeYou/imgs/receipt180.png" />
 </head>
 <body>
   <div id="fb-root"></div>
@@ -138,9 +138,9 @@
       success: function(response){
         FB.api('/me/photos',
           'post',
-          { name: 'I <3 you this much...',
+          { name: 'I (y) you this much (on facebook)...',
           tags: [{'x':20, 'y':20, 'tag_uid':loverId}, {'x':30, 'y':20, 'tag_uid':myId}],
-          url: 'http://www.thiagohersan.com/iLoveYou/'+response.replace("../","")},
+          url: 'http://www.thiagohersan.com/iLikeYou/'+response.replace("../","")},
           function(response){
             FB.api(response['id']+"/likes", 'post', function(response){});
         });
@@ -276,7 +276,7 @@
   <div id="main-body">
     <div class="content-center" id="first-section">
       <div id="title">
-        iLoveYou (on Facebook)<br>
+        iLikeYou (on Facebook)<br>
       </div>
       <div id="main-text">
         Love and affection at the limits of big data.<br>
@@ -285,7 +285,7 @@
       <div id="poem-text">
         How do I love thee? Let me count the ways.<br>
         I love thee to the depth and breadth and height<br>
-        My <a href="http://www.thiagohersan.com/iLoveYou/#" onclick="logMeIn()">browser</a> can reach, when feeling out of sight . . .<br>
+        My <a href="http://www.thiagohersan.com/iLikeYou/#" onclick="logMeIn()">browser</a> can reach, when feeling out of sight . . .<br>
       </div>
       <div id="score">
       </div>
@@ -294,7 +294,7 @@
 
   <div class="fb-like"
        id="fb-like"
-       data-href="http://www.thiagohersan.com/iLoveYou"
+       data-href="http://www.thiagohersan.com/iLikeYou"
        data-layout="box_count"
        data-action="like"
        data-show-faces="false"
@@ -302,7 +302,7 @@
   </div>
 
   <div id="about" class="bottom-links">
-    <a href="http://www.thiagohersan.com/project/iloveyou-on-facebook-2013/" target="_about">Info</a>
+    <a href="http://www.thiagohersan.com/project/ilikeyou-on-facebook-2013/" target="_about">Info</a>
   </div>
 
   <div id="credit" class="bottom-links">

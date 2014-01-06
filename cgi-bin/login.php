@@ -42,6 +42,6 @@
 
   if($allLoggedIn){
     ob_end_clean();
-    header('Location: '.'http://www.thiagohersan.com/iLoveYou');
+    header('Location: '.'http://www.thiagohersan.com/iLikeYou');
   }
 ?>
