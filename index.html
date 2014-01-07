@@ -150,7 +150,7 @@
       success: function(response){
         FB.api('/me/photos',
           'post',
-          { name: 'I (y) you this much (on facebook)...',
+          { name: 'I <3 you this much (on facebook)...',
           tags: [{'x':20, 'y':20, 'tag_uid':loverId}, {'x':30, 'y':20, 'tag_uid':myId}],
           url: 'http://www.thiagohersan.com/iLikeYou/'+response.replace("../","")},
           function(response){
