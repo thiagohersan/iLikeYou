@@ -84,8 +84,18 @@
         if(currentDelay < 2000){
           return function(){ addToScore(true, theId); }
         }
-        else{
+        else if((score%2) == 0){
           return function(){ FB.api(theId+"/likes", 'post', function(response){ addToScore(response, theId); }); }
+        }
+        else{
+          return function(){
+            $.ajax({
+              type: "POST",
+              url: "cgi-bin/like.php",
+              data: { id: theId, index: -1 },
+              success: function(response){ addToScore(JSON.parse(response), theId); }
+            });
+          }
         }
       }
       setTimeout(prepareApiCall(likeQueue.shift()), currentDelay);
