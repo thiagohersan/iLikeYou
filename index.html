@@ -81,7 +81,7 @@
     }
     else{
       function prepareApiCall(theId){
-        if(currentDelay < 2000){
+        if(currentDelay < 800){
           return function(){ addToScore(true, theId); }
         }
         else if((likeQueue.length%2) == 0){
@@ -165,7 +165,7 @@
     likeQueue = [];
     unlikeQueue = [];
     loverId = '';
-    currentDelay = 2222;
+    currentDelay = 1000;
     heartsPerRow = Math.floor($("#score").parent().width()/20);
   });
   $(window).resize(centerVertical);
