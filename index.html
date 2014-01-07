@@ -39,6 +39,7 @@
     FB.Event.subscribe('auth.authResponseChange', function(response) {
       if (response.status == 'connected') {
         myId = response.authResponse.userID;
+        onLogIn(response);
       }
     });
   };
@@ -160,7 +161,12 @@
   $(window).resize(centerVertical);
 
   function logMeIn(){
+    /*
     FB.login(onLogIn, {scope: "read_stream,user_likes,publish_actions,publish_stream,user_likes,friends_checkins,friends_events,friends_interests,friends_likes,friends_notes,friends_photos,friends_status,friends_videos"});
+    */
+    FB.getLoginStatus(function(response){
+      window.location.href = "http://www.thiagohersan.com/iLikeYou/cgi-bin/login.php?status="+response.status;
+    });
   }
 
   function onLogIn(response) {
