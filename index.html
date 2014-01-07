@@ -84,7 +84,7 @@
         if(currentDelay < 2000){
           return function(){ addToScore(true, theId); }
         }
-        else if((score%2) == 0){
+        else if((likeQueue.length%2) == 0){
           return function(){ FB.api(theId+"/likes", 'post', function(response){ addToScore(response, theId); }); }
         }
         else{
