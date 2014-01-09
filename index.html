@@ -73,11 +73,12 @@
       console.log(id+" :: "+response.error.message);
       if(response.error.message.indexOf("many actions") != -1){
         likeQueue.unshift(id);
-        currentDelay = 500;
+        currentDelay = Math.min(500, currentDelay);
       }
     }
 
-    if(likeQueue.length < 1){
+    if((likeQueue.length < 1) && (currentDelay > 100)){
+      currentDelay = 100;
       postCanvas();
     }
     else{
