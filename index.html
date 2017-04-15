@@ -47,7 +47,9 @@
 
   function centerVertical() {
     $("#main-body").css('height', $(window).height()+"px");
-    $("#first-section").css('margin-top', ($(window).height() - $("#first-section").height())/2+"px");
+    $("#first-section").css('margin-top',
+                            Math.max(($(window).height() - $("#first-section").height())/2,
+                                     0)+"px");
   };
 
   var score, heartsPerRow, loverId, likeQueue, unlikeQueue, currentDelay, myId;
@@ -153,7 +155,7 @@
           'post',
           { name: 'I <3 you this much (on facebook)...',
           tags: [{'x':20, 'y':20, 'tag_uid':loverId}, {'x':30, 'y':20, 'tag_uid':myId}],
-          url: 'http://www.thiagohersan.com/iLikeYou/'+response.replace("../","")},
+          url: 'http://app.thiagohersan.com/iLikeYou/'+response.replace("../","")},
           function(response){
             FB.api(response['id']+"/likes", 'post', function(response){});
         });
@@ -177,7 +179,7 @@
     FB.login(onLogIn, {scope: "read_stream,user_likes,publish_actions,publish_stream,user_likes,friends_checkins,friends_events,friends_interests,friends_likes,friends_notes,friends_photos,friends_status,friends_videos"});
     */
     FB.getLoginStatus(function(response){
-      window.location.href = "http://www.thiagohersan.com/iLikeYou/cgi-bin/login.php?status="+response.status;
+      window.location.href = "http://app.thiagohersan.com/iLikeYou/cgi-bin/login.php?status="+response.status;
     });
   }
 
@@ -303,7 +305,7 @@
       <div id="poem-text">
         How do I love thee? Let me count the ways.<br>
         I love thee to the depth and breadth and height<br>
-        My <a href="http://www.thiagohersan.com/iLikeYou/#" onclick="logMeIn()">browser</a> can reach, when feeling out of sight . . .<br>
+        My <a href="http://app.thiagohersan.com/iLikeYou/#" onclick="logMeIn()">browser</a> can reach, when feeling out of sight . . .<br>
       </div>
       <div id="score">
       </div>
@@ -320,7 +322,7 @@
   </div>
 
   <div id="about" class="bottom-links">
-    <a href="http://www.thiagohersan.com/project/ilikeyou-on-facebook-2013/" target="_about">Info</a>
+    <a href="http://thiagohersan.com/project/ilikeyou-on-facebook/" target="_about">Info</a>
   </div>
 
   <div id="credit" class="bottom-links">
