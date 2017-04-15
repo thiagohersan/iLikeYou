@@ -1,5 +1,4 @@
 <?php
-
   ob_start();
   require_once('php-sdk/facebook.php');
 
