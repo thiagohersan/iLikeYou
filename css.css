@@ -1,0 +1,100 @@
+body {
+	background:white;
+	padding:0;
+	margin:0;
+	height:100%;
+	min-height:100%;
+	font-family: 'Lato', sans-serif;
+}
+
+#main-body {
+	width:100%;
+	text-align: center;
+	vertical-align: middle;
+	padding: 0;
+	margin: 0;
+	background-color: #ffffff;
+	overflow: auto;
+}
+
+.content-center {
+	margin: auto auto;
+	display: inline-block;
+	background-color: #ffffff;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#title{
+	text-align: left;
+	font-size: 32pt;
+	font-weight: 300;
+	color: #000000;
+	line-height: 48pt;
+}
+
+#main-text{
+	text-align: left;
+	vertical-align: middle;
+	font-size: 16pt;
+	font-weight: 300;
+	color: #000000;
+	line-height: 24pt;
+	margin: 0 auto;
+}
+
+#poem-text{
+	text-align: left;
+	vertical-align: middle;
+	font-size: 16pt;
+	font-weight: 300;
+	color: #000000;
+	margin: 0 auto;
+}
+
+#poem-text a{
+	color: #3b5998;
+	font-weight: 700;
+	text-decoration: none;
+}
+
+#poem-text a:hover{
+	color: #000000;
+	font-weight: 700;
+}
+
+#score{
+	text-align: left;
+}
+
+#fb-like {
+	position:fixed;
+	bottom:10px;
+	left:25px;
+}
+
+#credit {
+	position:fixed;
+	bottom:10px;
+	right:25px;
+}
+
+#about {
+	position:fixed;
+	bottom:10px;
+	left: 48%;
+}
+
+.bottom-links a {
+	color: #000000;
+	text-decoration: none;
+}
+
+.fb_iframe_widget_lift {
+	transition:all .5s;
+	margin-top:-333px;
+}
+
+.invisible{
+	display: none;
+}

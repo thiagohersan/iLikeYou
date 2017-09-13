@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>iLikeYou (on Facebook)</title>
+    <meta name="description" content="iLikeYou (on Facebook) is an app for letting someone know you like them (on Facebook)">
+    <link href='//fonts.googleapis.com/css?family=Lato:100,300,400,700' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/json2.js"></script>
+    <link rel="stylesheet" type="text/css" href="css.css" />
+
+    <meta property="og:title" content="iLikeYou (on Facebook)" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="//ilikeyou.thiagohersan.com/" />
+    <meta property="og:image" content="//ilikeyou.thiagohersan.com/iLikeYou/imgs/receipt180.png" />
+    <meta property="og:description" content="iLikeYou (on Facebook) is an app for letting someone know you like them (on Facebook)" />
+  </head>
+  <body>
+    <script>
+      var score, heartsPerRow;
+
+      (function(d){
+        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement('script'); js.id = id; js.async = true;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        ref.parentNode.insertBefore(js, ref);
+      }(document));
+
+      window.fbAsyncInit = function() {
+        FB.init({ xfbml: true });
+      }
+
+      $(window).load(function(){
+        centerVertical();
+        score = 0;
+        heartsPerRow = Math.floor($("#score").parent().width()/20);
+      });
+      $(window).resize(centerVertical);
+
+      function centerVertical() {
+        var winH = $(window).height();
+        var fsH = $("#first-section").height();
+        $("#main-body").css('height', winH+"px");
+        $("#first-section").css('margin-top', Math.max((winH - fsH)/2, 0)+"px");
+      };
+
+      function addLikeToDiv() {
+        if((score++)%heartsPerRow == 0){
+          $("#score").append("<br>");
+        }
+
+        if(10*Math.random() < 0.5){
+          $("#score").append('<img src="./imgs/heart.png" width=20>');
+        }
+        else{
+          $("#score").append('<img src="./imgs/like.png" width=20>');
+        }
+        centerVertical();
+      }
+      function cheapLove(numLoves) {
+        for(var i=0; i<numLoves; i++) {
+          setTimeout(addLikeToDiv, i*100);
+        }
+      }
+    </script>
+
+    <div id="main-body">
+      <div class="content-center" id="first-section">
+        <div id="title">
+          iLikeYou (on Facebook)<br>
+        </div>
+        <div id="main-text">
+          Love and affection at the limits of big data.<br>
+        </div>
+        <hr>
+        <div id="poem-text">
+          How do I love thee? Let me count the ways.<br>
+          I love thee to the depth and breadth and height<br>
+          My <a href="/#" onclick="cheapLove(450)">browser</a> can reach, when feeling out of sight . . .<br>
+        </div>
+        <div id="score"></div>
+      </div>
+    </div>
+
+    <div class="fb-like"
+         id="fb-like"
+         data-href="http://www.thiagohersan.com/iLikeYou"
+         data-layout="box_count"
+         data-action="like"
+         data-show-faces="false"
+         data-share="false">
+    </div>
+
+    <div id="about" class="bottom-links">
+      <a href="//thiagohersan.com/project/ilikeyou-on-facebook/" target="_about">Info</a>
+    </div>
+
+    <div id="credit" class="bottom-links">
+      <a href="//thiagohersan.com/" target="_credit">Thiago Hersan</a>
+    </div>
+
+  </body>
+
+  <canvas class="invisible" id="myCanvas" width="0" height="0"></canvas>
+  <canvas class="invisible" id="canvasBuffer" width="0" height="0"></canvas>
+</html>
